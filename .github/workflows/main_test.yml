@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     env:
       AWS_ACCESS_KEY_ID: AKIAZPOBIXUJJ434XT5T
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -36,4 +36,4 @@ jobs:
     - name: Test with pytest (no secrets needed)
       run: | # Runs all tests, including both non-S3 and S3.
         poetry run pytest
-  
+
