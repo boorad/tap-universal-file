@@ -122,7 +122,7 @@ class FilesystemManager:
 
         # Only yield files when no replication key is present or when the file is newer
         # than the replication key value, as a datetime.
-        five_minutes_ago = datetime.datetime.now() - datetime.timedelta(minutes=5)
+        five_minutes_ago = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(minutes=5)
         for file_dict in file_dict_list:
             if starting_replication_key_value is None or (
                 file_dict["last_modified"] >= datetime.datetime.strptime(
