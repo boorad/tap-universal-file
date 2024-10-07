@@ -12,12 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version:
-        - "3.8"
-        - "3.9"
-        - "3.10"
-        - "3.11"
-        - "3.12"
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
     env:
       AWS_ACCESS_KEY_ID: NoSecretsNeeded
       AWS_SECRET_ACCESS_KEY: NoSecretsNeeded
