@@ -122,12 +122,17 @@ class FilesystemManager:
 
         # Only yield files when no replication key is present or when the file is newer
         # than the replication key value, as a datetime.
+        # Note: the `five_minutes_ago` variable is super-hard-coded to a Fragile use case.
+        #       This should be configurable in the future.
+        five_minutes_ago = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(minutes=5)
         for file_dict in file_dict_list:
-            if starting_replication_key_value is None or file_dict[
-                "last_modified"
-            ] >= datetime.datetime.strptime(
-                starting_replication_key_value,
-                r"%Y-%m-%dT%H:%M:%S%z",  # ISO-8601
+            if starting_replication_key_value is None or (
+                file_dict["last_modified"] >= datetime.datetime.strptime(
+                    starting_replication_key_value,
+                    r"%Y-%m-%dT%H:%M:%S%z",  # ISO-8601
+                )
+                and
+                file_dict["last_modified"] < five_minutes_ago
             ):
                 none_synced = False
                 yield file_dict
